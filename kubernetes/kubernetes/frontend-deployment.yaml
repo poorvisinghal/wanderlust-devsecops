@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wanderlust-devsecops
+spec:
+  selector:
+    matchLabels:
+      app: wanderlust-frontend
+  template:
+    metadata:
+      labels:
+        app: wanderlust-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: amaurya07/wanderlust_frontend:4
+        env:
+          - name: VITE_API_PATH
+            value: "http://35.225.228.144:5000"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5173

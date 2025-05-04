@@ -13,7 +13,7 @@ const port = PORT || 5000;
 
 // Configure CORS to allow requests from your frontend
 app.use(cors({
-  origin: 'http://34.57.143.10:5173', // Replace with your frontend's URL
+  origin: 'http://35.226.35.25:5173', // Replace with your frontend's URL
   credentials: true, // For cookies or authorization headers
 }));
 

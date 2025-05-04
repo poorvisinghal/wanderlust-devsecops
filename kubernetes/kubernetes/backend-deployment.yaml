@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wanderlust-devsecops-backend
+spec:
+  selector:
+    matchLabels:
+      app: wanderlust-backend
+  template:
+    metadata:
+      labels:
+        app: wanderlust-backend
+    spec:
+      containers:
+      - name: backend
+        image: amaurya07/wanderlust_backend:4
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        env:
+          - name: MONGODB_URI
+            value: mongodb://test:password@mongo-nodeport-svc:27017/wanderlust
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_USERNAME
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_PASSWORD
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: wanderlust-cm
+                key: PORT
+          - name: REDIS_URL
+            valueFrom:
+              configMapKeyRef:
+                name: wanderlust-cm
+                key: REDIS_URL
+          - name: CORS_ORIGIN
+            valueFrom:
+              configMapKeyRef:
+                name: wanderlust-cm
+                key: CORS_ORIGIN
