@@ -1,12 +1,6 @@
 pipeline {
-    agent { label 'master' }
+    agent any
 
-    options {
-        disableConcurrentBuilds()
-        skipDefaultCheckout()
-        timestamps()
-        cleanWs()
-    }
 
     parameters {
         string(name: 'DOCKER_IMAGE_TAG', defaultValue: 'latest', description: 'Tag for Docker images')
